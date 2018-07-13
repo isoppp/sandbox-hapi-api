@@ -1,0 +1,19 @@
+{
+  "name": "sandbox-hapi-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/isoppp/sandbox-hapi-api.git",
+  "author": "isoppp <prog@d2deck.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "good": "^8.1.1",
+    "good-console": "^7.1.0",
+    "hapi": "^17.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.1"
+  }
+}
