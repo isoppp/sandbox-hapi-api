@@ -4,16 +4,25 @@ module.exports = [
   {
     method: 'GET',
     path: '/todo',
-    handler: (request, h) => todoList
+    handler: async (request, h) => {
+      const userId = 1
+      const todos = await Knex('todo').where('user_id', userId)
+      return todos
+    },
   },
   {
     method: 'GET',
     path: '/todo/{id}',
-    handler: (request, h) => {
-      const id = request.params.id - 1
-      if (todoList[id]) return todoList[id]
+    handler: async (request, h) => {
+      const id = request.params.id
+      const userId = 1
+      const [todo] = await Knex('todo').where({
+        id: id,
+        user_id: userId,
+      })
+      if (todo) return todo
       return h.response({ message: 'Not Found' }).code(404)
-    }
+    },
   },
   {
     method: 'POST',
@@ -34,6 +43,15 @@ module.exports = [
       const [id] = await Knex('todo_item').insert(todoItem)
       return { message: 'created', id: id }
     }
+  },
+  {
+    method: 'GET',
+    path: '/todo/{id}/item',
+    handler: async (request, h) => {
+      const todoId = request.params.id
+      const items = await Knex('todo_item').where('todo_id', todoId)
+      return items
+    },
   },
   {
     method: 'PUT',
