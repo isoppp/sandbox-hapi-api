@@ -11,7 +11,10 @@
   "dependencies": {
     "good": "^8.1.1",
     "good-console": "^7.1.0",
-    "hapi": "^17.5.2"
+    "hapi": "^17.5.2",
+    "joi": "^13.4.0",
+    "knex": "^0.15.1",
+    "mysql": "^2.15.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.1"
