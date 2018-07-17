@@ -4,6 +4,11 @@ const server = new Hapi.Server({
   host: 'localhost',
 })
 
+const routes = {}
+const todo = require('./routes/todo')
+routes.todo = todo
+server.route(routes.todo)
+
 const options = {
   ops: {
     interval: 100000,
