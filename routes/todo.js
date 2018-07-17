@@ -65,23 +65,38 @@ module.exports = [
   {
     method: 'PATCH',
     path: '/todo/{id}',
-    handler: (request, h) => {
-      const index = request.params.id - 1
-      const todo = todoList[index]
-      Object.keys(request.payload).forEach(key => {
-        if (key in todo) {
-          todo[key] = request.payload[key]
-        }
-      })
+    handler: async (request, h) => {
+      const todoId = request.params.id
+      const title = request.payload.title
+      const patched = await Knex('todo').update({ title }).where('id', todoId)
+      return { message: 'patched' }
+    }
+  },
+  {
+    method: 'PATCH',
+    path: '/todo/{todo_id}/item/{id}',
+    handler: async (request, h) => {
+      const itemId = request.params.id
+      const item = request.payload
+      const pathced = await Knex('todo_item').update(item).where('id', itemId)
       return { message: 'patched' }
     }
   },
   {
     method: 'DELETE',
     path: '/todo/{id}',
-    handler: (request, h) => {
-      const index = request.params.id - 1
-      delete todoList[index]
+    handler: async (request, h) => {
+      const id = request.params.id
+      const deleted = await Knex('todo').where('id', id).delete()
+      return { message: 'deleted' }
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/todo/{todoId}/item/{id}',
+    handler: async (request, h) => {
+      const id = request.params.id
+      const deleted = await Knex('todo_item').where('id', id).delete()
       return { message: 'deleted' }
     }
   }
