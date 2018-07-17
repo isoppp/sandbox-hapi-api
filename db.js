@@ -13,6 +13,8 @@ const configs = {
   },
 }
 
+configs.test = configs.development
+
 const Knex = require('knex')(configs[env])
 
 module.exports = Knex
