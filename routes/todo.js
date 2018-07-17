@@ -1,22 +1,4 @@
-const todoList = [
-  {
-    title: 'Shopping',
-    dateCreated: 'Jan 21, 2018',
-    list: [
-      { text: 'Node.js Books', done: false },
-      { text: 'MacBook', done: false },
-      { text: 'Shoes', done: true },
-    ],
-  },
-  {
-    title: 'Places to visit',
-    dateCreated: 'Feb 12, 2018',
-    list: [
-      { text: 'Nairobi, Kenya', done: false },
-      { text: 'Moscow, Russia', done: false },
-    ],
-  },
-]
+const Knex = require('../db')
 
 module.exports = [
   {
@@ -36,10 +18,21 @@ module.exports = [
   {
     method: 'POST',
     path: '/todo',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const todo = request.payload
-      todoList.push(todo)
-      return { message: 'created' }
+      todo.user_id = 1
+      const [todoId] = await Knex('todo').returning('id').insert(todo)
+      return { message: 'created', todo_id: todoId }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/todo/{id}/item',
+    handler: async (request, h) => {
+      const todoItem = request.payload
+      todoItem.todo_id = request.params.id
+      const [id] = await Knex('todo_item').insert(todoItem)
+      return { message: 'created', id: id }
     }
   },
   {
