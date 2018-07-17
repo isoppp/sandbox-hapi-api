@@ -1,13 +1,21 @@
 const Hapi = require('hapi')
+const good = require('good');
+const hapiAuthJwt = require('hapi-auth-jwt2');
+const Knex = require('./db');
+
+// create a server with host and port
 const server = new Hapi.Server({
   port: 5000,
   host: 'localhost',
+  routes: {
+    cors: true,
+  }
 })
 
+// routes
 const routes = {}
-const todo = require('./routes/todo')
-routes.todo = todo
-server.route(routes.todo)
+routes.todo = require('./routes/todo')
+routes.auth = require('./routes/auth')
 
 const options = {
   ops: {
@@ -21,6 +29,7 @@ const options = {
   },
 }
 
+// Add the route
 server.route({
   method: 'GET',
   path: '/',
@@ -29,21 +38,41 @@ server.route({
   }
 })
 
-
-
-process.on('unhandledRejection', (err) => {
-  console.log(err)
-  process.exit(1)
-})
+server.route(routes.todo)
+server.route(routes.auth)
 
 const init = async () => {
+  await server.register(hapiAuthJwt)
+  server.auth.strategy('token', 'jwt', {
+    key: 'secretkey-hash',
+    verifyOptions: {
+      algorithms: ['HS256'],
+    },
+    validate: async (decoded, request, h) => {
+      console.log(" - - - - - - - decoded token:");
+      console.log(decoded);
+      console.log(" - - - - - - - request info:");
+      console.log(request.info);
+      console.log(" - - - - - - - user agent:");
+      console.log(request.headers['user-agent']);
+      const [user] = await Knex('user').where({ id: decoded.id });
+      return { isValid: user && user.email === decoded.email && user.name === decoded.name }
+    },
+  })
+
+  server.auth.default('token')
+
   await server.register({
-    plugin: require('good'),
+    plugin: good,
     options,
   })
 
   await server.start()
-  console.log(`Server running at: ${server.info.uri}`)
+  return server
 }
 
-init()
+init().then(server => {
+  console.log(`Server running at: ${server.info.uri}`)
+}).catch(err => {
+  console.log(err)
+})
