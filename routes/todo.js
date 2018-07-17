@@ -1,4 +1,5 @@
 const Knex = require('../db')
+const Joi = require('joi')
 
 module.exports = [
   {
@@ -32,6 +33,13 @@ module.exports = [
       todo.user_id = 1
       const [todoId] = await Knex('todo').returning('id').insert(todo)
       return { message: 'created', todo_id: todoId }
+    },
+    config: {
+      validate: {
+        payload: {
+          title: Joi.string().required()
+        }
+      }
     }
   },
   {
@@ -42,6 +50,13 @@ module.exports = [
       todoItem.todo_id = request.params.id
       const [id] = await Knex('todo_item').insert(todoItem)
       return { message: 'created', id: id }
+    },
+    config: {
+      validate: {
+        payload: {
+          text: Joi.string().required()
+        }
+      }
     }
   },
   {
@@ -70,6 +85,13 @@ module.exports = [
       const title = request.payload.title
       const patched = await Knex('todo').update({ title }).where('id', todoId)
       return { message: 'patched' }
+    },
+    config: {
+      validate: {
+        payload: {
+          title: Joi.string().required()
+        }
+      }
     }
   },
   {
@@ -80,6 +102,14 @@ module.exports = [
       const item = request.payload
       const pathced = await Knex('todo_item').update(item).where('id', itemId)
       return { message: 'patched' }
+    },
+    config: {
+      validate: {
+        payload: {
+          text: Joi.string().required(),
+          done: Joi.boolean()
+        }
+      }
     }
   },
   {
