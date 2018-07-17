@@ -6,7 +6,7 @@ module.exports = [
     method: 'GET',
     path: '/todo',
     handler: async (request, h) => {
-      const userId = 1
+      const userId = request.auth.credentials.id
       const todos = await Knex('todo').where('user_id', userId)
       return todos
     },
@@ -16,7 +16,7 @@ module.exports = [
     path: '/todo/{id}',
     handler: async (request, h) => {
       const id = request.params.id
-      const userId = 1
+      const userId = request.auth.credentials.id
       const [todo] = await Knex('todo').where({
         id: id,
         user_id: userId,
@@ -30,7 +30,7 @@ module.exports = [
     path: '/todo',
     handler: async (request, h) => {
       const todo = request.payload
-      todo.user_id = 1
+      todo.user_id = request.auth.credentials.id
       const [todoId] = await Knex('todo').returning('id').insert(todo)
       return { message: 'created', todo_id: todoId }
     },
