@@ -1,0 +1,27 @@
+{
+  "name": "sandbox-hapi-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/isoppp/sandbox-hapi-api.git",
+  "author": "isoppp <prog@d2deck.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "PORT=5001 ./node_modules/lab/bin/lab test --leaks -v"
+  },
+  "dependencies": {
+    "good": "^8.1.1",
+    "good-console": "^7.1.0",
+    "hapi": "^17.5.2",
+    "hapi-auth-jwt2": "^8.1.0",
+    "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.1",
+    "md5": "^2.2.1",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "lab": "^15.5.0",
+    "nodemon": "^1.18.1"
+  }
+}
