@@ -13,6 +13,17 @@ module.exports = {
     },
   },
 
+  test: {
+    client: 'mysql',
+    connection: {
+      host: '127.0.0.1',
+      user: 'root',
+      password: 'password',
+      database: 'todo',
+      charset: 'utf8',
+    },
+  },
+
   staging: {
     client: 'mysql',
     connection: {

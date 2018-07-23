@@ -4,7 +4,7 @@ const startServer = async () => {
 
   try {
     await server.start()
-    console.log((`server started at port:  ${server.info.uri} with env: ${process.env.NODE_ENV})}`))
+    console.log((`server started at port:  ${server.info.uri} with env: ${process.env.NODE_ENV || 'development'})}`))
   } catch (error) {
     console.error(error)
     process.exit(1)
