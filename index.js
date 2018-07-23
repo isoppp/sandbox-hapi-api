@@ -1,3 +1,7 @@
+const Model = require('objection').Model
+const knex = require('./db')
+Model.knex(knex)
+
 const createServer = require('./server')
 const startServer = async () => {
   const server = await createServer()
