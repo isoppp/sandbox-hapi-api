@@ -20,6 +20,7 @@ const createServer = async () => {
 
     server.route(require('./routes/todo'))
     server.route(require('./routes/auth'))
+    server.route(require('./routes/user'))
   }
 
   const registerPlugin = async (server) => {
@@ -40,7 +41,7 @@ const createServer = async () => {
         return { isValid: user && user.email === decoded.email && user.name === decoded.name }
       },
     })
-    server.auth.default('token')
+    // server.auth.default('token')
 
     const goodOptions = {
       ops: {

@@ -10,6 +10,7 @@
     "db:run": "docker run -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=todo -d -p 3306:3306 mysql:5.7",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
+    "db:reseed": "knex migrate:rollback && knex migrate:latest && knex seed:run",
     "test": "PORT=5001 ./node_modules/lab/bin/lab test --leaks -v"
   },
   "dependencies": {
@@ -18,11 +19,13 @@
     "hapi": "^17.5.2",
     "hapi-auth-jwt2": "^8.1.0",
     "joi": "^13.4.0",
+    "joi-to-json-schema": "^3.3.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
     "knex-migrate": "^1.6.1",
     "md5": "^2.2.1",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "objection": "^1.2.0"
   },
   "devDependencies": {
     "lab": "^15.5.0",
