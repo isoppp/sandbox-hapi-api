@@ -6,7 +6,7 @@ exports.up = function (knex, Promise) {
     table.dateTime('deleted_at').nullable()
 
     table.string('title', 50).notNull()
-    table.integer('user_id').unsigned().references('id').inTable('user')
+    table.integer('user_id').unsigned().references('id').inTable('user').onDelete('CASCADE');
   })
 };
 

@@ -7,7 +7,7 @@ exports.up = function (knex, Promise) {
 
     table.string('text', 50).notNull()
     table.boolean('done').defaultTo(false)
-    table.integer('todo_id').unsigned().references('id').inTable('todo')
+    table.integer('todo_id').unsigned().references('id').inTable('todo').onDelete('CASCADE');
   })
 };
 

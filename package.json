@@ -8,7 +8,8 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "PORT=5001 ./node_modules/lab/bin/lab test --leaks -v",
-    "db:run": "docker run -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=todo -d -p 3306:3306 mysql:5.7"
+    "db:run": "docker run -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=todo -d -p 3306:3306 mysql:5.7",
+    "db:migrate": "knex migrate:latest"
   },
   "dependencies": {
     "good": "^8.1.1",
