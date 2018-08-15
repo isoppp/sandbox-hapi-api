@@ -10,6 +10,7 @@ Code: https://github.com/PacktPublishing/BuildingAPIDevelopmentwithNode.js
 ## Blog Post
 
 Japanese Review: https://isoppp.com/note/2018-07-18/learn-beginning-api-development-nodejs/
+Add Knex Migrations and Seeds: https://isoppp.com//note/2018-08-15/migration-and-seed-using-knex/
 
 ## How to
 
