@@ -1,5 +1,7 @@
 # sandbox-hapi-api
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/isoppp/sandbox-hapi-api.svg)](https://greenkeeper.io/)
+
 Learn `Beginning API Development with Node.js` (using hapi v17)
 
 ## References
