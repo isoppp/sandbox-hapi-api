@@ -18,4 +18,4 @@ Learn `Beginning API Development with Node.js` (using hapi v17)
 - `yarn run db:run`
 - `yarn run db:migrate`
 - `yarn run db:seed`
-- `yarn run db:start`
+- `yarn run start`
